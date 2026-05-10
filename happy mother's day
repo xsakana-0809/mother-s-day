@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>母亲节快乐 - 感恩有你</title>
+    <style>
+        /* 整体样式设置 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7e2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a5568;
+            overflow: hidden; /* 防止掉落物导致滚动条出现 */
+        }
+
+        /* 容器卡片 */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #feb2b2;
+            animation: fadeIn 1.5s ease-in-out;
+            position: relative;
+            z-index: 10; /* 确保卡片在掉落物上方 */
+            backdrop-filter: blur(5px);
+        }
+
+        /* 标题样式 */
+        h1 {
+            color: #e53e3e;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 心形动画 */
+        .heart-center {
+            color: #f56565;
+            font-size: 3rem;
+            animation: beat 1s infinite alternate;
+            margin: 1rem 0;
+        }
+
+        /* 文字内容 */
+        .message {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #d53f8c;
+        }
+
+        /* 决心部分 */
+        .vow {
+            background: #fff5f5;
+            padding: 1rem;
+            border-left: 5px solid #f56565;
+            text-align: left;
+            font-style: italic;
+            border-radius: 5px;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 10px 25px;
+            background-color: #f56565;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #e53e3e;
+        }
+
+        /* 掉落元素样式 */
+        .drop-item {
+            position: fixed;
+            top: -50px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="heart-center">❤️</div>
+        <h1>母亲节快乐</h1>
+        
+        <div class="message">
+            <p>亲爱的妈妈：</p>
+            <p>在这个温馨的日子里，我想对您说声：<span class="highlight">谢谢您！</span></p>
+            <p>感谢您用无私的爱包容我的任性，用坚强的臂膀支撑起我们的家。您的爱就像春雨，润物无声，却给了我最坚实的力量。</p>
+        </div>
+
+        <div class="vow">
+            <p>“在未来的日子里，我会更加努力学习和生活，学会自律，学会照顾自己，也学会更好地爱您。我希望成为您的骄傲，为您遮风挡雨，就像您一直以来保护我那样。”</p>
+        </div>
+
+        <p style="margin-top: 20px; font-weight: bold; color: #e53e3e;">—— 永远爱您的孩子</p>
+        
+        <button class="btn" onclick="alert('妈妈，我爱你！祝您永远年轻、健康、漂亮')">母亲节快乐</button>
+    </div>
+
+    <script>
+        // 定义掉落的物品：玫瑰和爱心
+        const items = ['🌹', '❤️', '🌸', '💖', '🌷'];
+
+        function createDropItem() {
+            const item = document.createElement('div');
+            item.className = 'drop-item';
+            
+            // 随机选择图标
+            item.innerText = items[Math.floor(Math.random() * items.length)];
+            
+            // 随机位置
+            item.style.left = Math.random() * 100 + 'vw';
+            
+            // 随机大小
+            const size = Math.random() * 20 + 20 + 'px';
+            item.style.fontSize = size;
+            
+            // 随机动画时长（5-10秒）
+            const duration = Math.random() * 5 + 5;
+            item.style.animationDuration = duration + 's';
+            
+            // 随机透明度
+            item.style.opacity = Math.random() * 0.5 + 0.5;
+
+            document.body.appendChild(item);
+
+            // 动画结束后移除元素，防止堆积
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+
+        // 每 300 毫秒生成一个新的掉落物
+        setInterval(createDropItem, 300);
+
+        function sayLove() {
+            alert('妈妈，我爱你！您辛苦了！');
+            // 点击后额外爆发一波爱心
+            for(let i=0; i<15; i++) {
+                setTimeout(createDropItem, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
